@@ -5,6 +5,7 @@ use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\AbastecimientosController;
 
 // Inicio login
 Route::get('/', function () {
@@ -31,4 +32,11 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/detalles', [AdminController::class, 'detallesRecibos'])->name('admin.detalles');
     Route::get('/admin/proveedores', [AdminController::class, 'proveedores'])->name('admin.proveedores');
     Route::get('/admin/abastecimientos', [AdminController::class, 'abastecimientos'])->name('admin.abastecimientos');
+});
+
+// abastecimientos
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/admin/abastecimientos', [AbastecimientosController::class, 'index'])->name('abastecimientos.index');
+    Route::get('/admin/abastecimientos/create', [AbastecimientosController::class, 'create'])->name('abastecimientos.create');
+    Route::post('/admin/abastecimientos', [AbastecimientosController::class, 'store'])->name('abastecimientos.store');
 });

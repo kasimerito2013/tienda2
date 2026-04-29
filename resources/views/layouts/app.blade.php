@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+    @vite('resources/js/app.js')
 <head>
     <title>Mi App</title>
 </head>
