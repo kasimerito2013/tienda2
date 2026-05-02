@@ -7,7 +7,7 @@
     <div class="w-full max-w-md bg-white shadow-md rounded p-6">
         <h1 class="text-2xl font-bold text-center mb-6">Bienvenido a la Tienda</h1>
 
-        <form method="POST" action="{{ route('login.post') }}" class="space-y-4">
+        <form method="POST" action="{{ route('Login.post') }}" class="space-y-4">
             @csrf
             <div>
                 <label class="block text-sm font-medium text-gray-700">Email</label>

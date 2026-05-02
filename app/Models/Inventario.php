@@ -5,20 +5,22 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class inventarios extends Model
+class Inventario extends Model
 {
     use HasFactory;
-    protected string $table = 'inventarios';
-    protected array $fillable = [
+
+    protected $table = 'inventarios'; 
+
+    protected $fillable = [
         'producto_id',
         'cantidad_disponible',
         'cantidad_reservada',
         'cantidad_vendida',
         'ubicacion'
     ];
-    public function producto(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+
+    public function producto()
     {
-        return $this->belongsTo(productos::class, 'producto_id');
+        return $this->belongsTo(Producto::class, 'producto_id');
     }
-    
 }

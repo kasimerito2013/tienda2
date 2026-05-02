@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('recibos', function (Blueprint $table) {
             $table->id();
-             $table->unsignedBigInteger('users_id');
+            $table->unsignedBigInteger('users_id');
             $table->decimal('total', 10, 2);
             $table->foreign('users_id')->references('id')->on('users')->onDelete('cascade');
             $table->dateTime('fecha');

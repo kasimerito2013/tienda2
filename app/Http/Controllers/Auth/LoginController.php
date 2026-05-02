@@ -10,20 +10,23 @@ class LoginController extends Controller
 {
     public function login(Request $request)
     {
-        $credentials = $request->only('email', 'password');
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+        ]);
 
         if (Auth::attempt($credentials)) {
-            $user = Auth::user();
+            $request->session()->regenerate();
 
-            if ($user->role === 'admin') {
+            // Redirección según rol
+                if (Auth::user()->role === 'admin') {
                 return redirect()->route('admin.inventario');
             }
-
-            return redirect()->route('perfil');
+            return redirect()->route('user.productos');
         }
 
         return back()->withErrors([
-            'email' => 'Credenciales incorrectas',
+            'email' => 'Las credenciales no coinciden.',
         ]);
     }
 }

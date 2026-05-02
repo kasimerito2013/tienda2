@@ -2,34 +2,42 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Abastecimientos;
-use App\Models\proveedores;
+use App\Models\Abastecimiento;
 use App\Models\Producto;
+use App\Models\Proveedor;
 use Illuminate\Http\Request;
+
 
 class AbastecimientosController extends Controller
 {
-    public function createAbastecimiento()
-        {
-            $proveedores = proveedores::all();
-            $productos = Producto::all();
-            return view('admin.abastecimientos.create', compact('proveedores', 'productos'));
-        }
+    public function index()
+    {
+        $abastecimientos = Abastecimiento::with(['producto', 'proveedor'])->get();
 
-public function storeAbastecimiento(Request $request)
-        {
-            $validated = $request->validate([
-                'producto_id' => 'required|exists:productos,id',
-                'proveedor_id' => 'required|exists:proveedores,id',
-                'cantidad' => 'required|integer|min:1',
-                'precio_unitario' => 'required|numeric|min:0',
-                'fecha_abastecimiento' => 'required|date',
-            ]);
+        return view('admin.abastecimientos.index', compact('abastecimientos'));
+    }
 
-            Abastecimientos::create($validated);
+    public function create()
+    {
+        // Aquí puedes cargar productos y proveedores para el formulario
+        $productos = \App\Models\Producto::all();
+        $proveedores = \App\Models\Proveedor::all();
 
-            return redirect()->route('admin.abastecimientos')
-                            ->with('success', 'Abastecimiento agregado correctamente.');
-        }
+        return view('admin.abastecimientos.create', compact('productos', 'proveedores'));
+    }
 
+    public function store(Request $request)
+    {
+        $request->validate([
+            'producto_id' => 'required|exists:productos,id',
+            'proveedor_id' => 'required|exists:proveedores,id',
+            'cantidad' => 'required|numeric|min:1',
+            'precio_unitario' => 'required|numeric|min:0',
+            'fecha_abastecimiento' => 'required|date',
+        ]);
+
+        Abastecimiento::create($request->all());
+
+        return redirect()->route('abastecimientos.index')->with('success', 'Abastecimiento registrado correctamente.');
+    }
 }
