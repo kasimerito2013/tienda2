@@ -6,6 +6,7 @@ use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\AbastecimientosController;
+use App\Http\Controllers\ReciboController;
 
 // Inicio login
 Route::get('/', function () {
@@ -40,5 +41,5 @@ Route::get('/productos/{id}', [ProductoController::class, 'show'])->name('produc
     Route::post('/admin/abastecimientos', [AbastecimientosController::class, 'store'])->name('abastecimientos.store');
 
     // Recibos con detalles combinados
-    Route::get('/admin/recibos', [AdminController::class, 'recibosConDetalles'])->name('admin.recibos');
-});
+    Route::get('/admin/recibos', [ReciboController::class, 'index'])->name('admin.recibos');});
+    Route::get('/admin/recibos/create', [ReciboController::class, 'create'])->name('admin.recibos.create');

@@ -20,6 +20,6 @@ class Recibo extends Model
 
     public function detalles()
     {
-        return $this->hasMany(Detalle_recibo::class);
+        return $this->hasMany(Detalle_recibo::class, 'recibo_id');
     }
 }

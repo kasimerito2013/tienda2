@@ -9,9 +9,9 @@ class Detalle_recibo extends Model
 {
         use HasFactory;
     
-        protected string $table = 'detalle_recibos';
+        protected $table = 'detalle_recibos';
     
-        protected array $fillable = [
+        protected $fillable = [
             'recibo_id',
             'producto_id',
             'cantidad',
@@ -20,11 +20,11 @@ class Detalle_recibo extends Model
     
         public function recibo(): \Illuminate\Database\Eloquent\Relations\BelongsTo
         {
-            return $this->belongsTo(recibos::class, 'recibo_id');
+            return $this->belongsTo(Recibo::class, 'recibo_id');
         }
     
         public function producto(): \Illuminate\Database\Eloquent\Relations\BelongsTo
         {
-            return $this->belongsTo(productos::class, 'producto_id');
+            return $this->belongsTo(Producto::class, 'producto_id');
         }
 }

@@ -10,7 +10,7 @@ class ProductoController extends Controller
     // paguina inicio
     public function index()
     {
-        $productos = Producto::all();
+        $productos = \App\Models\Producto::all();
         return view('public.productos.index', compact('productos'));
     }
     //detalle del producto
